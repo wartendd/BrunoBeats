@@ -33,10 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
   skipBtn.addEventListener("click", () => {
     if (gameOver) return;
 
+    // Mark current input as Skipped
     inputs[currentAttempt].value = "Skipped";
-    submitButtons[currentAttempt].disabled = true;
     inputs[currentAttempt].disabled = true;
+    submitButtons[currentAttempt].disabled = true;
 
+    // Move to next attempt
     currentAttempt++;
 
     if (currentAttempt >= clipLengths.length) {
@@ -45,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Enable the next input and focus it
     inputs[currentAttempt].disabled = false;
     submitButtons[currentAttempt].disabled = false;
     inputs[currentAttempt].focus();
@@ -61,8 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
         gameOver = true;
         return;
       } else {
+        // Disable current input and button
         inputs[index].disabled = true;
         btn.disabled = true;
+
+        // Move to next attempt
         currentAttempt++;
 
         if (currentAttempt >= clipLengths.length) {
@@ -77,5 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Initially focus the first input
+  inputs[0].focus();
 
 });
