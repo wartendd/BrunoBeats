@@ -17,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const guessInput = document.getElementById("guessInput");
   const message = document.getElementById("message");
 
-  playBtn.addEventListener("click", () => {
-    if (gameOver) return;
-
+  function playClip() {
     audio.pause();
     audio.currentTime = 0;
     audio.play().then(() => {
@@ -27,6 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
         audio.pause();
       }, clipLengths[attempt] * 1000);
     });
+  }
+
+  playBtn.addEventListener("click", () => {
+    if (gameOver) return;
+    playClip();
+  });
+
+  skipBtn.addEventListener("click", () => {
+    if (gameOver) return;
+
+    attempt++;
+
+    if (attempt >= clipLengths.length) {
+      message.textContent = `Out of tries! The song was "${song.title}"`;
+      gameOver = true;
+      return;
+    }
+
+    message.textContent = "Skipped! Here's a longer clip…";
+    playClip(); // 🔥 THIS IS THE FIX
   });
 
   guessBtn.addEventListener("click", () => {
@@ -44,22 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
         gameOver = true;
       } else {
         message.textContent = "Wrong! Try a longer clip…";
+        playClip();
       }
     }
 
     guessInput.value = "";
-  });
-
-  skipBtn.addEventListener("click", () => {
-    if (gameOver) return;
-
-    attempt++;
-    if (attempt >= clipLengths.length) {
-      message.textContent = `Out of tries! The song was "${song.title}"`;
-      gameOver = true;
-    } else {
-      message.textContent = "Skipped! Next clip is longer.";
-    }
   });
 
 });
