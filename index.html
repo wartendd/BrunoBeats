@@ -5,9 +5,23 @@
   <title>BrunoBeats</title>
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-    .attempt { margin-bottom: 10px; }
+    .attempt { margin-bottom: 10px; display: flex; align-items: center; }
     input { width: 200px; padding: 5px; }
     button { margin-left: 5px; }
+    .wrong { 
+      color: red; 
+      border: 2px solid red; 
+      background-color: #ffcccc; 
+      position: relative;
+    }
+    .wrong::after {
+      content: '❌';
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
