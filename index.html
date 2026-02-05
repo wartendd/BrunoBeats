@@ -3,20 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>BrunoBeats</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+    .attempt { margin-bottom: 10px; }
+    input { width: 200px; padding: 5px; }
+    button { margin-left: 5px; }
+  </style>
 </head>
 <body>
 
-  <h1>BrunoBeats 🎵</h1>
+<h1>BrunoBeats 🎵</h1>
+<p>Game #1</p>
 
-  <button id="playBtn">Play Clip</button>
-  <button id="skipBtn">Skip</button>
-  <br><br>
+<div class="attempt">
+  <span>0.5s</span>
+  <input type="text" class="guessInput" list="songSuggestions">
+  <button class="submitBtn">Submit</button>
+</div>
+<div class="attempt">
+  <span>1.0s</span>
+  <input type="text" class="guessInput" list="songSuggestions" disabled>
+  <button class="submitBtn" disabled>Submit</button>
+</div>
+<div class="attempt">
+  <span>2.5s</span>
+  <input type="text" class="guessInput" list="songSuggestions" disabled>
+  <button class="submitBtn" disabled>Submit</button>
+</div>
 
-  <input type="text" id="guessInput" placeholder="Guess the song">
-  <button id="guessBtn">Guess</button>
+<br>
+<button id="playBtn">Play</button>
+<button id="skipBtn">Skip</button>
 
-  <p id="message"></p>
+<p id="message"></p>
 
-  <script src="script.js"></script>
+<datalist id="songSuggestions">
+  <option value="Versace on the Floor">
+  <option value="Locked Out of Heaven">
+  <option value="24K Magic">
+  <option value="When I Was Your Man">
+  <option value="Talking to the Moon">
+  <option value="Grenade">
+  <option value="Just the Way You Are">
+  <option value="That’s What I Like">
+</datalist>
+
+<script src="script.js"></script>
 </body>
 </html>
