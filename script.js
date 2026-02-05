@@ -1,17 +1,17 @@
-// Step 1: Define a song
+// Define the song
 const song = {
-  title: "Versace on the Floor",  // Song name
+  title: "Versace on the Floor",
   preview: "https://wartendd.github.io/BrunoBeats/Votf.mp3"
 };
 
-// Step 2: Create an audio object
+// Create audio object
 const audio = new Audio(song.preview);
 
-// Step 3: Set clip lengths (seconds)
-const clipLengths = [0.5, 1, 2.5, 5, 30]; // progressively longer clips
+// Clip lengths in seconds
+const clipLengths = [0.5, 1, 2.5, 5, 30];
 let attempt = 0;
 
-// Step 4: Connect buttons
+// Connect buttons
 const playBtn = document.getElementById("playBtn");
 const guessBtn = document.getElementById("guessBtn");
 const guessInput = document.getElementById("guessInput");
@@ -19,9 +19,12 @@ const message = document.getElementById("message");
 
 // Play clip button
 playBtn.onclick = () => {
-  audio.currentTime = 0;         // start at beginning
-  audio.play();
-  setTimeout(() => audio.pause(), clipLengths[attempt] * 1000); // stop after clip
+  audio.pause();                  // stop any playing audio
+  audio.currentTime = 0;          // start at beginning
+  audio.play().catch(err => {     // handle autoplay errors
+    console.log("Audio play error:", err);
+  });
+  setTimeout(() => audio.pause(), clipLengths[attempt] * 1000);
 };
 
 // Guess button
