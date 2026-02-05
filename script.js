@@ -1,7 +1,7 @@
 // Step 1: Define a song
 const song = {
-  title: "Uptown Funk",  // Song name
-  preview: "https://p.scdn.co/mp3-preview/1b9c74c8e86e5f38a25e2d... (replace with a real 30s preview URL)"
+  title: "Versace on the Floor",  // Song name
+  preview: "https://wartendd.github.io/BrunoBeats/Votf.mp3"
 };
 
 // Step 2: Create an audio object
