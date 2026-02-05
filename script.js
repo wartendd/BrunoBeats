@@ -5,68 +5,77 @@ document.addEventListener("DOMContentLoaded", () => {
     preview: "https://wartendd.github.io/BrunoBeats/Votf.mp3"
   };
 
-  const audio = new Audio(song.preview);
-
-  // Only three attempts: 0.5s, 1s, 2.5s
   const clipLengths = [0.5, 1, 2.5];
-  let attempt = 0;
-  let gameOver = false;
+  const audio = new Audio(song.preview);
 
   const playBtn = document.getElementById("playBtn");
   const skipBtn = document.getElementById("skipBtn");
-  const guessBtn = document.getElementById("guessBtn");
-  const guessInput = document.getElementById("guessInput");
   const message = document.getElementById("message");
+  const inputs = Array.from(document.querySelectorAll(".guessInput"));
+  const submitButtons = Array.from(document.querySelectorAll(".submitBtn"));
+
+  let currentAttempt = 0;
+  let gameOver = false;
 
   function playClip() {
+    if (gameOver) return;
     audio.pause();
     audio.currentTime = 0;
     audio.play().then(() => {
-      setTimeout(() => audio.pause(), clipLengths[attempt] * 1000);
+      setTimeout(() => audio.pause(), clipLengths[currentAttempt] * 1000);
     });
   }
 
   playBtn.addEventListener("click", () => {
-    if (gameOver) return;
     playClip();
   });
 
   skipBtn.addEventListener("click", () => {
     if (gameOver) return;
 
-    attempt++;
+    inputs[currentAttempt].value = "Skipped";
+    submitButtons[currentAttempt].disabled = true;
+    inputs[currentAttempt].disabled = true;
 
-    if (attempt >= clipLengths.length) {
+    currentAttempt++;
+
+    if (currentAttempt >= clipLengths.length) {
       message.textContent = `Out of tries! The song was "${song.title}" 🎵`;
       gameOver = true;
       return;
     }
 
-    message.textContent = "Skipped! Here's a longer clip…";
-    playClip();
+    inputs[currentAttempt].disabled = false;
+    submitButtons[currentAttempt].disabled = false;
+    inputs[currentAttempt].focus();
   });
 
-  guessBtn.addEventListener("click", () => {
-    if (gameOver) return;
+  submitButtons.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      if (gameOver) return;
 
-    const guess = guessInput.value.toLowerCase().trim();
+      const guess = inputs[index].value.toLowerCase().trim();
 
-    if (guess === song.title.toLowerCase()) {
-      message.textContent = `Correct! You got it in ${attempt + 1} tries 🎉`;
-      gameOver = true;
-    } else {
-      attempt++;
-
-      if (attempt >= clipLengths.length) {
-        message.textContent = `Out of tries! The song was "${song.title}" 🎵`;
+      if (guess === song.title.toLowerCase()) {
+        message.textContent = `Correct! You got it in ${index + 1} tries 🎉`;
         gameOver = true;
+        return;
       } else {
-        message.textContent = "Wrong! Try a longer clip…";
-        playClip();
-      }
-    }
+        inputs[index].disabled = true;
+        btn.disabled = true;
+        currentAttempt++;
 
-    guessInput.value = "";
+        if (currentAttempt >= clipLengths.length) {
+          message.textContent = `Out of tries! The song was "${song.title}" 🎵`;
+          gameOver = true;
+          return;
+        }
+
+        inputs[currentAttempt].disabled = false;
+        submitButtons[currentAttempt].disabled = false;
+        inputs[currentAttempt].focus();
+      }
+    });
   });
 
 });
