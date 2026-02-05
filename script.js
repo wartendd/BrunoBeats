@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Enable the next input and focus it
+    // Enable next input and focus
     inputs[currentAttempt].disabled = false;
     submitButtons[currentAttempt].disabled = false;
     inputs[currentAttempt].focus();
@@ -64,6 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
         gameOver = true;
         return;
       } else {
+        // Mark as wrong visually
+        inputs[index].classList.add("wrong");
+
         // Disable current input and button
         inputs[index].disabled = true;
         btn.disabled = true;
@@ -77,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
+        // Enable next input and focus
         inputs[currentAttempt].disabled = false;
         submitButtons[currentAttempt].disabled = false;
         inputs[currentAttempt].focus();
