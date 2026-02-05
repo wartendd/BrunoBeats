@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const audio = new Audio(song.preview);
 
-  const clipLengths = [0.5, 1, 2.5, 5, 30];
+  // Only three attempts: 0.5s, 1s, 2.5s
+  const clipLengths = [0.5, 1, 2.5];
   let attempt = 0;
   let gameOver = false;
 
@@ -21,9 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.pause();
     audio.currentTime = 0;
     audio.play().then(() => {
-      setTimeout(() => {
-        audio.pause();
-      }, clipLengths[attempt] * 1000);
+      setTimeout(() => audio.pause(), clipLengths[attempt] * 1000);
     });
   }
 
@@ -38,13 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     attempt++;
 
     if (attempt >= clipLengths.length) {
-      message.textContent = `Out of tries! The song was "${song.title}"`;
+      message.textContent = `Out of tries! The song was "${song.title}" 🎵`;
       gameOver = true;
       return;
     }
 
     message.textContent = "Skipped! Here's a longer clip…";
-    playClip(); // 🔥 THIS IS THE FIX
+    playClip();
   });
 
   guessBtn.addEventListener("click", () => {
@@ -57,8 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
       gameOver = true;
     } else {
       attempt++;
+
       if (attempt >= clipLengths.length) {
-        message.textContent = `Out of tries! The song was "${song.title}"`;
+        message.textContent = `Out of tries! The song was "${song.title}" 🎵`;
         gameOver = true;
       } else {
         message.textContent = "Wrong! Try a longer clip…";
