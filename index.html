@@ -3,17 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>BrunoBeats</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+    .attempt { margin-bottom: 10px; display: flex; align-items: center; }
+    input { width: 200px; padding: 5px; }
+    button { margin-left: 5px; }
+    .wrong { 
+      color: red; 
+      border: 2px solid red; 
+      background-color: #ffcccc; 
+      position: relative;
+    }
+    .wrong::after {
+      content: '❌';
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>BrunoBeats 🎵</h1>
 
-  <button id="playBtn">Play Clip</button><br><br>
+<h1>BrunoBeats 🎵</h1>
+<p>Game #1</p>
 
-  <input type="text" id="guessInput" placeholder="Guess the song">
-  <button id="guessBtn">Guess</button>
+<div class="attempt">
+  <span>0.5s</span>
+  <input type="text" class="guessInput" list="songSuggestions">
+  <button class="submitBtn">Submit</button>
+</div>
+<div class="attempt">
+  <span>1.0s</span>
+  <input type="text" class="guessInput" list="songSuggestions" disabled>
+  <button class="submitBtn" disabled>Submit</button>
+</div>
+<div class="attempt">
+  <span>2.5s</span>
+  <input type="text" class="guessInput" list="songSuggestions" disabled>
+  <button class="submitBtn" disabled>Submit</button>
+</div>
 
-  <p id="message"></p>
+<br>
+<button id="playBtn">Play</button>
+<button id="skipBtn">Skip</button>
 
-  <script src="script.js"></script>
+<p id="message"></p>
+
+<datalist id="songSuggestions">
+  <option value="Versace on the Floor">
+  <option value="Locked Out of Heaven">
+  <option value="24K Magic">
+  <option value="When I Was Your Man">
+  <option value="Talking to the Moon">
+  <option value="Grenade">
+  <option value="Just the Way You Are">
+  <option value="That’s What I Like">
+</datalist>
+
+<script src="script.js"></script>
 </body>
 </html>
